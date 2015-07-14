@@ -31,16 +31,24 @@ class CalligraphyLayoutInflater extends LayoutInflater implements CalligraphyAct
     private Field mConstructorArgs = null;
 
     protected CalligraphyLayoutInflater(Context context, int attributeId) {
+        this(context, attributeId, new CalligraphyFactory(attributeId));
+    }
+
+    protected CalligraphyLayoutInflater(Context context, int attributeId, CalligraphyFactory calligraphyFactory) {
         super(context);
         mAttributeId = attributeId;
-        mCalligraphyFactory = new CalligraphyFactory(attributeId);
+        mCalligraphyFactory = calligraphyFactory;
         setUpLayoutFactories(false);
     }
 
     protected CalligraphyLayoutInflater(LayoutInflater original, Context newContext, int attributeId, final boolean cloned) {
+        this(original, newContext, attributeId, cloned, new CalligraphyFactory(attributeId));
+    }
+
+    protected CalligraphyLayoutInflater(LayoutInflater original, Context newContext, int attributeId, final boolean cloned, CalligraphyFactory calligraphyFactory) {
         super(original, newContext);
         mAttributeId = attributeId;
-        mCalligraphyFactory = new CalligraphyFactory(attributeId);
+        mCalligraphyFactory = calligraphyFactory;
         setUpLayoutFactories(cloned);
     }
 
